@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+*.zip
+serverless/package/
+serverless/data_consistency.py
