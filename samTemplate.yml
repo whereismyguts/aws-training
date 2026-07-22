@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: CloudX UploadsNotification Lambda
+
+Resources:
+  CloudXUploadsNotificationFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: CloudX-UploadsNotificationFunction
+      CodeUri: serverless/
+      Handler: uploads_notification.lambda_handler
+      Runtime: python3.12
+      Timeout: 30
+      Environment:
+        Variables:
+          SNS_ARN: arn:aws:sns:eu-north-1:996122083508:CloudX-UploadsNotificationTopic
+          ALB_DNS: CloudX-LoadBalancer-193300269.eu-north-1.elb.amazonaws.com
+      Policies:
+        - AmazonSNSFullAccess
+        - AmazonSQSFullAccess
+        - AWSLambdaBasicExecutionRole
+      AutoPublishAlias: live
+      DeploymentPreference:
+        Type: Canary10Percent10Minutes
+      Events:
+        SQSTrigger:
+          Type: SQS
+          Properties:
+            Queue: arn:aws:sqs:eu-north-1:996122083508:CloudX-UploadsNotificationQueue
+            BatchSize: 10
