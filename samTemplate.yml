@@ -21,7 +21,7 @@ Resources:
         - AWSLambdaBasicExecutionRole
       AutoPublishAlias: live
       DeploymentPreference:
-        Type: Canary10Percent10Minutes
+        Type: AllAtOnce
       Events:
         SQSTrigger:
           Type: SQS
