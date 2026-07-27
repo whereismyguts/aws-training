@@ -19,9 +19,6 @@ Resources:
         - AmazonSNSFullAccess
         - AmazonSQSFullAccess
         - AWSLambdaBasicExecutionRole
-      AutoPublishAlias: live
-      DeploymentPreference:
-        Type: AllAtOnce
       Events:
         SQSTrigger:
           Type: SQS
